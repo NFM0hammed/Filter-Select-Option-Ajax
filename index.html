@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Main File Of CSS -->
+        <link rel="stylesheet" type="text/css" href="css/main.css" />
+        <!-- Render All Elements -->
+        <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+        <!-- Google Fonts -->
+        <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+        <title>Filter Input Ajax</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="table">
+                <div class="select">
+                    <span>Select Category</span>
+                    <select id="">
+                        <option class="option" value="1">Gaming</option>
+                        <option class="option" value="2">Machines</option>
+                        <option class="option" value="3">Devices</option>
+                    </select>
+                </div>
+                <table cellspacing="0">
+                    <tr>
+                        <td>
+                            <span>ID</span>
+                        </td>
+                        <td>
+                            <span>Category</span>
+                        </td>
+                        <td>
+                            <span>Name</span>
+                        </td>
+                        <td>
+                            <span>Price</span>
+                        </td>
+                        <td>
+                            <span>Buy</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <script>
+            // Get Information
+            let select  = document.querySelector(".table .select select"),
+                table   = document.querySelector(".table table tbody"),
+                myData  = [];
+
+            // Create a Request
+            let myRequest = new XMLHttpRequest();
+
+            // Function For On Ready State Change
+            function onReadyStateChange(myRequest) {
+                myRequest.onreadystatechange = function() {
+                    if(this.readyState === 4 && this.status === 200) {
+                        // Get Data From JSON File
+                        myData = JSON.parse(this.responseText);
+
+                        // Loop To Show Data On DOM
+                        for(let i = 0; i < myData.length; i++) {   
+                            if(select.value == myData[i].catId) {
+                                // Create tr
+                                let tr = document.createElement("tr");
+
+                                /* 
+                                    Create 5 td
+                                    td For Id
+                                */
+                                let tdId = document.createElement("td");
+
+                                // td For Category
+                                let tdCat = document.createElement("td");
+
+                                // td For Name
+                                let tdName = document.createElement("td");
+
+                                // td For Price
+                                let tdPrice = document.createElement("td");
+
+                                // td For Buy
+                                let tdBuy = document.createElement("td");
+
+                                // ==================================================
+
+                                /*
+                                    Create Span
+                                    Span For Id
+                                */
+                                let spanId = document.createElement("span");
+
+                                // Span For Cat
+                                let spanCat = document.createElement("span");
+
+                                // Span For Name
+                                let spanName = document.createElement("span");
+
+                                // Span For Price
+                                let spanPrice = document.createElement("span");
+
+                                // Span For Buy
+                                let spanBuy = document.createElement("span");
+
+                                // ==================================================
+
+                                /*
+                                    Append Values On Span
+                                    Append Id On spanId
+                                */
+                                spanId.textContent = myData[i].id;
+
+                                // Append Cat On spanCat
+                                spanCat.textContent = myData[i].category;
+
+                                // Append Name On spanName
+                                spanName.textContent = myData[i].name;
+
+                                // Append Price On spanPrice
+                                spanPrice.textContent = myData[i].price;
+
+                                // Append Buy On spanBuy
+                                spanBuy.textContent = "Buy";
+
+                                // ==================================================
+
+                                /*
+                                    Append Span On td
+                                    Append spanId on tdId
+                                */
+                                tdId.appendChild(spanId);
+
+                                // Append spanCat on tdCat
+                                tdCat.appendChild(spanCat);
+
+                                // Append spanName on tdName
+                                tdName.appendChild(spanName);
+
+                                // Append spanPrice on tdPrice
+                                tdPrice.appendChild(spanPrice);
+
+                                // Append spanCat on tdCat
+                                tdBuy.appendChild(spanBuy);
+
+                                // ================================================== 
+                                
+                                /*
+                                    Append td On tr
+                                    Append tdId on tr
+                                */
+                                tr.appendChild(tdId);
+                                
+                                // Append tdCat on tr
+                                tr.appendChild(tdCat);
+                                
+                                // Append tdName on tr
+                                tr.appendChild(tdName);
+
+                                // Append tdPrice on tr
+                                tr.appendChild(tdPrice);
+
+                                // Append tdBuy on tr
+                                tr.appendChild(tdBuy);
+
+                                // Add Class To tr
+                                tr.className = "show";
+
+                                // Append tr On Table
+                                table.appendChild(tr);
+                            }
+                        }
+                    }
+                }
+                // Make a Request
+                myRequest.open("GET", "data.json", true);
+
+                // Send The Request
+                myRequest.send();
+            }
+
+            // Call Function On Ready State Change To Show Data From Database By Default
+            onReadyStateChange(myRequest);
+
+            // Change Option After Selected
+            select.addEventListener("change", function(){
+                // Get All tr Information
+                let trTable = document.querySelectorAll(".table table tbody .show");
+
+                // Loop To Remove
+                for(let i = 0; i < trTable.length; i++) {
+                    // Remove All tr After Change Select Option
+                    trTable[i].remove();
+                }
+
+                /*
+                    Call Function On Ready State Change After Change Select Option By Clicking
+                    & Show Data From Database After Change Select Option
+                */
+                onReadyStateChange(myRequest);
+            });
+        </script>
+    </body>
+</html>

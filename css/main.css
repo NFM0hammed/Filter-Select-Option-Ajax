@@ -1,0 +1,97 @@
+body {
+    font-family: 'Poppins';
+}
+
+/* Container Of Page */
+.container {
+    padding: 30px;
+    margin: auto;
+}
+
+/* Width Of Page For All Media */
+/* Width For Mobile */
+@media (min-width: 768px) {
+    .container {
+        width: 750px;
+    }
+}
+
+/* Width For Medium */
+@media (min-width: 992px) {
+    .container {
+        width: 970px;
+    }
+}
+
+/* Width For Large */
+@media (min-width: 1200px) {
+    .container {
+        width: 1170px;
+    }
+}
+
+/* Start Design */
+.table {
+    background-color: #F1F6F9;
+    padding: 30px;
+    border-radius: 3px;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+.table .select {
+    position: relative;
+}
+.table .select::after {
+    content: "";
+    position: absolute;
+    background-color: #0080ff;
+    width: 50px;
+    height: 2px;
+    bottom: -3px;
+    left: 2px;
+}
+.table .select span {
+    font-weight: bold;
+    margin-right: 10px;
+}
+.table .select select {
+    width: 200px;
+    height: 30px;
+    cursor: pointer;
+}
+.table .select select:focus {
+    outline: none;
+}
+.table table {
+    width: 100%;
+    text-align: center;
+    padding-top: 40px;
+}
+@media (max-width: 767px) {
+    .table table {
+        width: calc(100% + 200px);
+    }
+}
+.table table tr:first-of-type {
+    background-color: #0080ff !important;
+    color: #fff;
+    font-weight: bold;
+}
+.table table tr:not(:first-of-type) {
+    background-color: #FFF;
+}
+.table table tr:nth-child(odd) {
+    background-color: #F1F6F9;
+}
+.table table tr td span:last-of-type {
+    display: block;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.table table tr:not(:first-of-type) td:last-of-type span {
+    color: #0080ff;
+    text-decoration: underline;
+    cursor: pointer;
+}
+/* End Design */
